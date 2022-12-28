@@ -1,4 +1,15 @@
 /* ------------------- */
+/* Custom properties   */
+/* ------------------- */
+:root {
+    --clr-white: hsl(0, 0%, 100%);
+    --clr-dark: hsl(36, 46%, 16%);
+    --clr-lightdark: hsl(36, 25%, 42%);
+
+    --ff-general: Kanit, sans-serif;
+}
+
+/* ------------------- */
 /* Reset               */
 /* ------------------- */
 
@@ -20,14 +31,29 @@ h4,
 h5,
 p,
 figure,
-picture {
+picture,
+ul {
     margin: 0;
+}
+
+ul {
+    padding: 0;
 }
 
 /* set up the body */
 body {
     line-height: 1.5;
     min-height: 100vh;
+    font-family: var(--ff-general);
+    font-weight: 400;
+    font-size: 1rem;
+    background-color: hsl(34, 100%, 97%);
+}
+
+#root {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: inherit;
 }
 
 /* make images easier to work with */
