@@ -7,3 +7,4 @@ Frontend приложение - интернет магазин Catharsis
 -   React
 -   Redux Toolkit
 -   Jest
+-   styled-components
