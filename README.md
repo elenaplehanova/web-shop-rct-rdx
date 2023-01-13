@@ -2,7 +2,7 @@
 
 Frontend приложение - интернет магазин Catharsis
 
-# Стек технологий
+# Tech stack / Стек технологий
 
 -   React
 -   Redux Toolkit
