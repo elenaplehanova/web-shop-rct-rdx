@@ -8,3 +8,5 @@ Frontend приложение - интернет магазин Catharsis
 -   Redux Toolkit
 -   Jest
 -   styled-components
+-   React Hook Form
+
