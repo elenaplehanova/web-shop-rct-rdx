@@ -9,4 +9,5 @@ Frontend приложение - интернет магазин Catharsis
 -   Jest
 -   styled-components
 -   React Hook Form
+- Firebase
 
