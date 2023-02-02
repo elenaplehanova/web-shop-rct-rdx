@@ -1,4 +1,12 @@
 import styled from "styled-components";
+import Button from "./UI/Button";
+import { useState } from "react";
+import Login from "./Login";
+import H2 from "./UI/H2";
+import Register from "./Register";
+import { removeUser } from "../store/reducers/UserSlice";
+import { useAuth } from "../hooks/use-auth";
+import { useAppDispatch } from "../hooks/redux";
 
 const H1 = styled.h1`
     font-weight: 300;
@@ -10,58 +18,47 @@ const H1 = styled.h1`
     }
 `;
 
-const H2 = styled.h2`
-    display: flex;
-    font-weight: 600;
-    color: var(--clr-lightdark);
-    font-size: 1.5rem;
-
-    padding-bottom: 2rem;
-
-    @media (min-width: 35em) {
-        font-size: 2rem;
-        padding-bottom: 4rem;
-    }
-
-    &::before,
-    ::after {
-        content: "";
-        background-color: var(--clr-lightdark);
-        height: 0.125rem;
-        width: 2ch;
-
-        margin-inline: 0.5rem;
-        margin-block: auto;
-    }
+const H3 = styled.h3`
+    text-align: center;
 `;
 
-const Button = styled.button`
-    border: 0;
-    text-transform: uppercase;
-    background-color: transparent;
-    background-image: url("assets/button-background.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-
-    width: 100%;
-    height: 4rem;
-`;
-
-const Container = styled.main`
+const MainContainer = styled.main`
     display: flex;
     align-items: center;
     flex-direction: column;
 `;
 
+const ButtonsDiv = styled.div`
+    margin: auto;
+`;
+
 const Main = () => {
+    let [isOpenLogin, setIsOpenLogin] = useState(false);
+    let [isOpenRegistry, setIsOpenRegistry] = useState(false);
+
+    const dispatch = useAppDispatch();
+    const { isAuth, email } = useAuth();
+
     return (
-        <Container>
+        <MainContainer>
             <H1>Catharsis</H1>
             <H2>Личный кабинет</H2>
-            <Button>Войти</Button>
-            <Button>Зарегистрироваться</Button>
-        </Container>
+
+            {isAuth ? (
+                <div>
+                    <H3>Привет, {email}!</H3>
+                    <Button onClick={() => dispatch(removeUser())}>Выйти</Button>
+                </div>
+            ) : (
+                <ButtonsDiv>
+                    <Button onClick={() => setIsOpenLogin(true)}>Войти</Button>
+                    <Button onClick={() => setIsOpenRegistry(true)}>Зарегистрироваться</Button>
+                </ButtonsDiv>
+            )}
+
+            {isOpenLogin && <Login setIsOpen={() => setIsOpenLogin(false)} />}
+            {isOpenRegistry && <Register setIsOpen={() => setIsOpenRegistry(false)} />}
+        </MainContainer>
     );
 };
 
