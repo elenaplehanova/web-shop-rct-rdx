@@ -79,13 +79,16 @@ const Login: FC<LoginProps> = ({ setIsOpen }) => {
         signInWithEmailAndPassword(auth, data.email, data.password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                dispatch(
-                    setUser({
-                        email: user.email ?? "",
-                        id: user.uid,
-                        token: user.accessToken,
-                    })
-                );
+
+                user.getIdToken().then((token) => {
+                    dispatch(
+                        setUser({
+                            email: user.email ?? "",
+                            id: user.uid,
+                            token: token,
+                        })
+                    );
+                });
                 setIsOpen();
             })
             .catch((error) => {
