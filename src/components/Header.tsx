@@ -1,3 +1,5 @@
+import { MouseEvent, MutableRefObject, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.header`
@@ -35,10 +37,6 @@ const Ul = styled.ul`
             width: 40%;
         }
     }
-
-    & > *:last-child:hover ul {
-        display: block;
-    }
 `;
 
 const Li = styled.li`
@@ -48,8 +46,23 @@ const Li = styled.li`
     text-transform: uppercase;
     font-size: 0.875rem;
 
+    padding-inline: 0.2rem;
+
     @media (min-width: 35em) {
         white-space: nowrap;
+    }
+
+    &:hover,
+    &:focus {
+        border: 0.01rem var(--clr-dark) solid;
+        transition: all 0.2s;
+
+        transform: scale(1.1);
+    }
+
+    & > a {
+        text-decoration: none;
+        color: inherit;
     }
 `;
 
@@ -67,7 +80,6 @@ const SubUl = styled.ul`
     top: 1.5rem;
     right: 0;
     text-align: end;
-    display: none;
     background-color: hsl(0 0% 100% / 0.9);
 
     @supports (backdrop-filter: blur(1rem)) {
@@ -82,17 +94,30 @@ const SubUl = styled.ul`
 `;
 
 const Header = () => {
+    let [isHidden, setIsHidden] = useState(true);
+    let openingLi = useRef<HTMLLIElement>(null);
+
+    function showMenu(event: MouseEvent): void {
+        if (openingLi.current === event.target) {
+            setIsHidden((prevValue) => !prevValue);
+        }
+    }
+
     return (
         <Container>
             <nav>
                 <Ul>
-                    <Li>О нас</Li>
-                    <Li>Личный кабинет</Li>
+                    <Li>
+                        <Link to="/about">О нас</Link>
+                    </Li>
+                    <Li>
+                        <Link to="/">Личный кабинет</Link>
+                    </Li>
                     <Li>Корзина</Li>
                     <Line />
-                    <Li>
+                    <Li ref={openingLi} onClick={showMenu}>
                         Верхняя одежда
-                        <SubUl>
+                        <SubUl hidden={isHidden}>
                             <Li>Платья</Li>
                             <Li>Юбки</Li>
                             <Li>Топы</Li>

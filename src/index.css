@@ -3,10 +3,12 @@
 /* ------------------- */
 :root {
     --clr-white: hsl(0, 0%, 100%);
+    --clr-light: hsl(34, 100%, 97%);
     --clr-dark: hsl(36, 46%, 16%);
     --clr-lightdark: hsl(36, 25%, 42%);
 
     --ff-general: Kanit, sans-serif;
+    --ff-additional: Montserrat, sans-serif;
 }
 
 /* ------------------- */
@@ -47,7 +49,7 @@ body {
     font-family: var(--ff-general);
     font-weight: 400;
     font-size: 1rem;
-    background-color: hsl(34, 100%, 97%);
+    background-color: var(--clr-light);
 }
 
 #root {
