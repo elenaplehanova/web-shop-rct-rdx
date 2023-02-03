@@ -28,6 +28,10 @@ const MainContainer = styled.main`
     flex-direction: column;
 `;
 
+const LogoutButton = styled(Button)`
+    margin: auto;
+`;
+
 const ButtonsDiv = styled.div`
     margin: auto;
 `;
@@ -47,7 +51,7 @@ const Main = () => {
             {isAuth ? (
                 <div>
                     <H3>Привет, {email}!</H3>
-                    <Button onClick={() => dispatch(removeUser())}>Выйти</Button>
+                    <LogoutButton onClick={() => dispatch(removeUser())}>Выйти</LogoutButton>
                 </div>
             ) : (
                 <ButtonsDiv>
