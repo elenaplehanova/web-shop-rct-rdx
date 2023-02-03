@@ -1,4 +1,4 @@
-import { MouseEvent, MutableRefObject, useRef, useState } from "react";
+import { MouseEvent, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -41,11 +41,9 @@ const Ul = styled.ul`
 
 const Li = styled.li`
     position: relative;
-    cursor: pointer;
     list-style: none;
     text-transform: uppercase;
     font-size: 0.875rem;
-
     padding-inline: 0.2rem;
 
     @media (min-width: 35em) {
@@ -54,9 +52,9 @@ const Li = styled.li`
 
     &:hover,
     &:focus {
-        border: 0.01rem var(--clr-dark) solid;
+        cursor: pointer;
+        box-shadow: 0 0 0.2rem var(--clr-dark);
         transition: all 0.2s;
-
         transform: scale(1.1);
     }
 
@@ -89,7 +87,7 @@ const SubUl = styled.ul`
     }
 
     & > * {
-        padding: 0.3rem;
+        margin: 0.3rem;
     }
 `;
 
