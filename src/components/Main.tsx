@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "./UI/Button";
+import Button from "./UI/Buttons/Button";
 import { useState } from "react";
 import Login from "./Login";
 import H2 from "./UI/H2";

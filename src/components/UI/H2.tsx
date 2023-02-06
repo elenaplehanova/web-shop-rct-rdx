@@ -8,11 +8,8 @@ const H2 = styled.h2`
     color: var(--text-color);
     font-size: 1.5rem;
 
-    //padding-bottom: 2rem;
-
     @media (min-width: 35em) {
         font-size: 2rem;
-        // padding-bottom: 4rem;
     }
 
     &::before,

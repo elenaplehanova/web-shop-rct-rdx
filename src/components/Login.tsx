@@ -1,15 +1,16 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import Button from "./UI/Button";
-import CloseButton from "./UI/CloseButton";
-import ErrorInput from "./UI/ErrorInput";
+import Button from "./UI/Buttons/Button";
+import CloseButton from "./UI/Buttons/CloseButton";
+import ErrorInput from "./UI/Inputs/ErrorInput";
 import H2 from "./UI/H2";
-import Input from "./UI/Input";
+import Input from "./UI/Inputs/Input";
 import Modal from "./UI/Modal";
 import { setUser } from "../store/reducers/UserSlice";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useAppDispatch } from "../hooks/redux";
+import PasswordInput from "./UI/Inputs/PasswordInput";
 
 const Form = styled.form`
     display: grid;
@@ -112,6 +113,17 @@ const Login: FC<LoginProps> = ({ setIsOpen }) => {
             });
     };
 
+    const registerPassword = {
+        ...register("password", {
+            required: "Поле обязательно к заполнению",
+            minLength: {
+                value: 6,
+                message: "Минимум 6 символов",
+            },
+        }),
+    };
+    type reqisterPasswordType = typeof registerPassword;
+
     return (
         <Modal>
             <Form onSubmit={handleSubmit(onSubmit)}>
@@ -136,17 +148,9 @@ const Login: FC<LoginProps> = ({ setIsOpen }) => {
                     </div>
 
                     <div>
-                        <Input
-                            {...register("password", {
-                                required: "Поле обязательно к заполнению",
-                                minLength: {
-                                    value: 6,
-                                    message: "Минимум 6 символов",
-                                },
-                            })}
-                            type="password"
-                            placeholder="Введите пароль"
-                        />
+                        <PasswordInput<reqisterPasswordType>
+                            {...{ register: registerPassword, placeholder: "Введите пароль" }}
+                        ></PasswordInput>
                         <ErrorInput>
                             {errors.password && <p>{errors.password.message}</p>}
                         </ErrorInput>
