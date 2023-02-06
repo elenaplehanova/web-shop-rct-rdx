@@ -36,7 +36,7 @@ const P = styled.p`
 const Footer = () => {
     return (
         <Container>
-            <P> © 2022 Cartharsis</P>
+            <P> © 2023 Catharsis</P>
             <ImgDiv>
                 <img src="assets/icon/instagram.svg" alt="instagram" />
                 <img src="assets/icon/telegram.svg" alt="telegram" />
