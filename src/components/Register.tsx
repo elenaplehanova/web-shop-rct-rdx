@@ -1,15 +1,16 @@
 import { FC, useRef } from "react";
 import Modal from "./UI/Modal";
 import styled from "styled-components";
-import CloseButton from "./UI/CloseButton";
+import CloseButton from "./UI/Buttons/CloseButton";
 import H2 from "./UI/H2";
-import Input from "./UI/Input";
-import ErrorInput from "./UI/ErrorInput";
+import Input from "./UI/Inputs/Input";
+import ErrorInput from "./UI/Inputs/ErrorInput";
 import { useForm } from "react-hook-form";
-import Button from "./UI/Button";
+import Button from "./UI/Buttons/Button";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { setUser } from "../store/reducers/UserSlice";
 import { useAppDispatch } from "../hooks/redux";
+import PasswordInput from "./UI/Inputs/PasswordInput";
 
 const Form = styled.form`
     display: grid;
@@ -59,7 +60,7 @@ type RegisterData = {
     firstName: string;
     lastName: string;
     password: string;
-    password_repeat: string;
+    passwordRepeat: string;
 };
 
 type RegisterProps = {
@@ -111,6 +112,29 @@ const Register: FC<RegisterProps> = ({ setIsOpen }) => {
             });
     };
 
+    const registerPassword = {
+        ...register("password", {
+            required: "Поле обязательно к заполнению",
+            minLength: {
+                value: 6,
+                message: "Минимум 6 символов",
+            },
+        }),
+    };
+    type reqisterPasswordType = typeof registerPassword;
+
+    const registerPasswordRepeat = {
+        ...register("passwordRepeat", {
+            required: "Поле обязательно к заполнению",
+            minLength: {
+                value: 6,
+                message: "Минимум 6 символов",
+            },
+            validate: (value) => value === password.current || "Пароли не совпадают",
+        }),
+    };
+    type reqisterPasswordRepeatType = typeof registerPasswordRepeat;
+
     return (
         <Modal>
             <Form onSubmit={handleSubmit(onSubmit)}>
@@ -159,38 +183,23 @@ const Register: FC<RegisterProps> = ({ setIsOpen }) => {
                     </div>
 
                     <div>
-                        <Input
-                            {...register("password", {
-                                required: "Поле обязательно к заполнению",
-                                minLength: {
-                                    value: 6,
-                                    message: "Минимум 6 символов",
-                                },
-                            })}
-                            type="password"
-                            placeholder="Новый пароль"
-                        />
+                        <PasswordInput<reqisterPasswordType>
+                            {...{ register: registerPassword, placeholder: "Новый пароль" }}
+                        ></PasswordInput>
                         <ErrorInput>
                             {errors.password && <p>{errors.password.message}</p>}
                         </ErrorInput>
                     </div>
 
                     <div>
-                        <Input
-                            {...register("password_repeat", {
-                                required: "Поле обязательно к заполнению",
-                                minLength: {
-                                    value: 6,
-                                    message: "Минимум 6 символов",
-                                },
-                                validate: (value) =>
-                                    value === password.current || "Пароли не совпадают",
-                            })}
-                            type="password"
-                            placeholder="Повторите пароль"
-                        />
+                        <PasswordInput<reqisterPasswordRepeatType>
+                            {...{
+                                register: registerPasswordRepeat,
+                                placeholder: "Повторите пароль",
+                            }}
+                        ></PasswordInput>
                         <ErrorInput>
-                            {errors.password_repeat && <p>{errors.password_repeat.message}</p>}
+                            {errors.passwordRepeat && <p>{errors.passwordRepeat.message}</p>}
                         </ErrorInput>
                     </div>
                 </InputsDiv>
