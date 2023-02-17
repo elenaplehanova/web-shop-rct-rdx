@@ -2,7 +2,7 @@ import { MouseEvent, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const Container = styled.header`
+const Nav = styled.nav`
     @media (max-width: 35em) {
         ::after {
             display: block;
@@ -91,6 +91,17 @@ const SubUl = styled.ul`
     }
 `;
 
+const H1 = styled.h1`
+    text-align: center;
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: 3rem;
+
+    @media (min-width: 35em) {
+        font-size: 6rem;
+    }
+`;
+
 const Header = () => {
     let [isHidden, setIsHidden] = useState(true);
     let openingLi = useRef<HTMLLIElement>(null);
@@ -102,8 +113,8 @@ const Header = () => {
     }
 
     return (
-        <Container>
-            <nav>
+        <header>
+            <Nav>
                 <Ul>
                     <Li>
                         <Link to="/about">О нас</Link>
@@ -123,8 +134,9 @@ const Header = () => {
                         </SubUl>
                     </Li>
                 </Ul>
-            </nav>
-        </Container>
+            </Nav>
+            <H1>Catharsis</H1>
+        </header>
     );
 };
 
