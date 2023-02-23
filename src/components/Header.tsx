@@ -78,12 +78,13 @@ const SubUl = styled.ul`
     top: 1.5rem;
     right: 0;
     text-align: end;
-    background-color: hsl(0 0% 100% / 0.9);
+    background-color: hsl(34 100% 97% / 0.9);
 
-    @supports (backdrop-filter: blur(1rem)) {
-        background-color: hsl(0 0% 100% / 0.1);
-
-        backdrop-filter: blur(0.3rem);
+    @media (min-width: 35em) {
+        @supports (backdrop-filter: blur(0.5rem)) {
+            background-color: hsl(0 0% 100% / 0.2);
+            backdrop-filter: blur(0.5rem);
+        }
     }
 
     & > * {

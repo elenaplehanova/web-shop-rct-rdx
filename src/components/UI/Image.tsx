@@ -10,14 +10,17 @@ interface ImageProps extends DivProps {
 
 const Div = styled.div<DivProps>`
     position: relative;
+    z-index: -1;
 
-    &:after {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        background: transparent;
-        border: 0.05rem solid var(--clr-dark);
-        inset: ${(props) => props.inset};
+    @media (min-width: 35em) {
+        &:after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            background: transparent;
+            border: 0.05rem solid var(--clr-dark);
+            inset: ${(props) => props.inset};
+        }
     }
 `;
 

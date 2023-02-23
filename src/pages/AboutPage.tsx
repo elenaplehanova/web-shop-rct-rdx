@@ -15,13 +15,24 @@ const ImageDiv = styled.div`
     justify-content: center;
     align-items: end;
     gap: 1.5rem;
-    grid-template-columns: 15rem 20rem 15rem;
+    grid-template-columns: 15rem;
+
+    @media (min-width: 35em) {
+        grid-template-columns: 15rem 20rem 15rem;
+    }
 `;
 
 const P = styled.p`
     text-align: justify;
     font-family: var(--ff-additional);
     padding-block: 1rem;
+
+    width: 20rem;
+    margin: auto;
+
+    @media (min-width: 35em) {
+        width: 100%;
+    }
 `;
 
 const P1 = styled(P)`
@@ -45,13 +56,22 @@ const H4 = styled.h4`
 `;
 
 const H4_2 = styled(H4)`
-    text-align: end;
+    text-align: start;
+    padding-top: 1rem;
+
+    @media (min-width: 35em) {
+        text-align: end;
+    }
 `;
 
 const Article = styled.article`
     display: grid;
     align-items: end;
-    grid-template-columns: 35rem;
+    grid-template-columns: 20rem;
+
+    @media (min-width: 35em) {
+        grid-template-columns: 35rem;
+    }
 `;
 
 const AboutPage = () => {
