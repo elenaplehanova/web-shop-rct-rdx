@@ -8,18 +8,9 @@ import { removeUser } from "../store/reducers/UserSlice";
 import { useAuth } from "../hooks/use-auth";
 import { useAppDispatch } from "../hooks/redux";
 
-const H1 = styled.h1`
-    font-weight: 300;
-    text-transform: uppercase;
-    font-size: 3rem;
-
-    @media (min-width: 35em) {
-        font-size: 6rem;
-    }
-`;
-
-const H3 = styled.h3`
+const P = styled.p`
     text-align: center;
+    font-weight: 500;
 `;
 
 const MainContainer = styled.main`
@@ -45,12 +36,11 @@ const Main = () => {
 
     return (
         <MainContainer>
-            <H1>Catharsis</H1>
             <H2>Личный кабинет</H2>
 
             {isAuth ? (
                 <div>
-                    <H3>Привет, {email}!</H3>
+                    <P>Привет, {email}!</P>
                     <LogoutButton onClick={() => dispatch(removeUser())}>Выйти</LogoutButton>
                 </div>
             ) : (
