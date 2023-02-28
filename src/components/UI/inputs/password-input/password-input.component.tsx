@@ -1,35 +1,5 @@
-import styled from "styled-components";
-import Input from "./Input";
 import { useState } from "react";
-
-const InputDiv = styled.div`
-    display: flex;
-    border-bottom: var(--clr-lightdark) solid 0.1rem;
-`;
-
-const StyledInput = styled(Input)`
-    border: 0;
-`;
-
-interface IToggleButtonProps {
-    iconName: string;
-}
-const ToggleButton = styled.button<IToggleButtonProps>`
-    padding-inline: 0.5rem;
-
-    display: block;
-    border: 0;
-    background-color: transparent;
-    background-image: ${(props) => `url(assets/icon/${props.iconName}.svg)`};
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-
-    width: 1rem;
-    aspect-ratio: 1;
-
-    margin-inline: 0.2rem;
-`;
+import { InputDiv, StyledInput, ToggleButton } from "./password-input.styles";
 
 interface PasswordInputProps<T> {
     register: T;

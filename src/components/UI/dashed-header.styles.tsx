@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const H2 = styled.h2`
+const DashedHeader = styled.h2`
     --text-color: var(--clr-lightdark);
 
     display: flex;
@@ -24,4 +24,4 @@ const H2 = styled.h2`
     }
 `;
 
-export default H2;
+export default DashedHeader;

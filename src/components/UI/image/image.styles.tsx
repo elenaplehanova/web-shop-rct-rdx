@@ -1,14 +1,10 @@
 import styled from "styled-components";
 
-interface DivProps {
+export interface ImageContainerProps {
     inset: string;
 }
 
-interface ImageProps extends DivProps {
-    src: string;
-}
-
-const Div = styled.div<DivProps>`
+export const ImageContainer = styled.div<ImageContainerProps>`
     position: relative;
     z-index: -1;
 
@@ -24,16 +20,6 @@ const Div = styled.div<DivProps>`
     }
 `;
 
-const Img = styled.img`
+export const BaseImage = styled.img`
     display: block;
 `;
-
-const Image = (props: ImageProps) => {
-    return (
-        <Div inset={props.inset}>
-            <Img src={props.src} alt="" />
-        </Div>
-    );
-};
-
-export default Image;

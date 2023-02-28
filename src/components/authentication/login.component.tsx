@@ -1,59 +1,19 @@
 import { FC } from "react";
-import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import Button from "./UI/Buttons/Button";
-import CloseButton from "./UI/Buttons/CloseButton";
-import ErrorInput from "./UI/Inputs/ErrorInput";
-import H2 from "./UI/H2";
-import Input from "./UI/Inputs/Input";
-import Modal from "./UI/Modal";
-import { setUser } from "../store/reducers/UserSlice";
+import ErrorInput from "../UI/inputs/error-input.styles";
+import Input from "../UI/inputs/input.styles";
+import Modal from "../UI/modal/modal.component";
+import { setUser } from "../../store/reducers/UserSlice";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useAppDispatch } from "../hooks/redux";
-import PasswordInput from "./UI/Inputs/PasswordInput";
-
-const Form = styled.form`
-    display: grid;
-
-    background-color: var(--clr-light);
-    width: min(80%, 38rem);
-`;
-
-const LoginCloseButton = styled(CloseButton)`
-    margin: 0.5rem;
-    justify-self: end;
-`;
-
-const LoginH2 = styled(H2)`
-    --text-color: var(--clr-dark);
-    justify-self: center;
-`;
-
-const InputsDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    width: 75%;
-
-    gap: 1rem;
-    padding-block: 1rem;
-
-    @media (min-width: 35em) {
-        gap: 2rem;
-        padding-top: 3rem;
-    }
-`;
-
-const LoginButton = styled(Button)`
-    width: min(80%, 20rem);
-    font-size: 0.875rem;
-
-    justify-self: center;
-
-    @media (min-width: 35em) {
-        margin-bottom: 1.5rem;
-    }
-`;
+import { useAppDispatch } from "../../hooks/redux";
+import PasswordInput from "../UI/inputs/password-input/password-input.component";
+import {
+    FormContainer,
+    InputsContainer,
+    StyledButton,
+    StyledCloseButton,
+    StyledDashedHeader,
+} from "./authentication.style";
 
 type LoginData = {
     email: string;
@@ -126,12 +86,12 @@ const Login: FC<LoginProps> = ({ setIsOpen }) => {
 
     return (
         <Modal>
-            <Form onSubmit={handleSubmit(onSubmit)}>
-                <LoginCloseButton onClick={setIsOpen} />
+            <FormContainer onSubmit={handleSubmit(onSubmit)}>
+                <StyledCloseButton onClick={setIsOpen} />
 
-                <LoginH2>Войти</LoginH2>
+                <StyledDashedHeader>Войти</StyledDashedHeader>
 
-                <InputsDiv>
+                <InputsContainer>
                     <div>
                         <Input
                             {...register("email", {
@@ -155,10 +115,10 @@ const Login: FC<LoginProps> = ({ setIsOpen }) => {
                             {errors.password && <p>{errors.password.message}</p>}
                         </ErrorInput>
                     </div>
-                </InputsDiv>
+                </InputsContainer>
 
-                <LoginButton disabled={!isValid}>Войти</LoginButton>
-            </Form>
+                <StyledButton disabled={!isValid}>Войти</StyledButton>
+            </FormContainer>
         </Modal>
     );
 };
