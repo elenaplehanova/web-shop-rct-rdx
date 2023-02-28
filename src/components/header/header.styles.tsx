@@ -1,8 +1,6 @@
-import { MouseEvent, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const Nav = styled.nav`
+export const NavigationContainer = styled.nav`
     @media (max-width: 35em) {
         ::after {
             display: block;
@@ -14,7 +12,7 @@ const Nav = styled.nav`
     }
 `;
 
-const Ul = styled.ul`
+export const ListsContainer = styled.ul`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -39,7 +37,7 @@ const Ul = styled.ul`
     }
 `;
 
-const Li = styled.li`
+export const ListItem = styled.li`
     position: relative;
     list-style: none;
     text-transform: uppercase;
@@ -64,7 +62,7 @@ const Li = styled.li`
     }
 `;
 
-const Line = styled.span`
+export const Line = styled.span`
     @media (min-width: 35em) {
         content: "";
         background-color: var(--clr-dark);
@@ -73,7 +71,7 @@ const Line = styled.span`
     }
 `;
 
-const SubUl = styled.ul`
+export const SublistsContainer = styled.ul`
     position: absolute;
     top: 1.5rem;
     right: 0;
@@ -92,7 +90,7 @@ const SubUl = styled.ul`
     }
 `;
 
-const H1 = styled.h1`
+export const HeaderText = styled.h1`
     text-align: center;
     font-weight: 300;
     text-transform: uppercase;
@@ -102,43 +100,3 @@ const H1 = styled.h1`
         font-size: 6rem;
     }
 `;
-
-const Header = () => {
-    let [isHidden, setIsHidden] = useState(true);
-    let openingLi = useRef<HTMLLIElement>(null);
-
-    function showMenu(event: MouseEvent): void {
-        if (openingLi.current === event.target) {
-            setIsHidden((prevValue) => !prevValue);
-        }
-    }
-
-    return (
-        <header>
-            <Nav>
-                <Ul>
-                    <Li>
-                        <Link to="/about">О нас</Link>
-                    </Li>
-                    <Li>
-                        <Link to="/">Личный кабинет</Link>
-                    </Li>
-                    <Li>Корзина</Li>
-                    <Line />
-                    <Li ref={openingLi} onClick={showMenu}>
-                        Верхняя одежда
-                        <SubUl hidden={isHidden}>
-                            <Li>Платья</Li>
-                            <Li>Юбки</Li>
-                            <Li>Топы</Li>
-                            <Li>Брюки</Li>
-                        </SubUl>
-                    </Li>
-                </Ul>
-            </Nav>
-            <H1>Catharsis</H1>
-        </header>
-    );
-};
-
-export default Header;

@@ -1,59 +1,19 @@
 import { FC, useRef } from "react";
-import Modal from "./UI/Modal";
-import styled from "styled-components";
-import CloseButton from "./UI/Buttons/CloseButton";
-import H2 from "./UI/H2";
-import Input from "./UI/Inputs/Input";
-import ErrorInput from "./UI/Inputs/ErrorInput";
+import Modal from "../UI/modal/modal.component";
+import Input from "../UI/inputs/input.styles";
+import ErrorInput from "../UI/inputs/error-input.styles";
 import { useForm } from "react-hook-form";
-import Button from "./UI/Buttons/Button";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { setUser } from "../store/reducers/UserSlice";
-import { useAppDispatch } from "../hooks/redux";
-import PasswordInput from "./UI/Inputs/PasswordInput";
-
-const Form = styled.form`
-    display: grid;
-
-    background-color: var(--clr-light);
-    width: min(80%, 38rem);
-`;
-
-const RegisterCloseButton = styled(CloseButton)`
-    margin: 0.5rem;
-    justify-self: end;
-`;
-
-const RegisterH2 = styled(H2)`
-    --text-color: var(--clr-dark);
-    justify-self: center;
-`;
-
-const InputsDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    width: 75%;
-
-    gap: 1rem;
-    padding-block: 1rem;
-
-    @media (min-width: 35em) {
-        gap: 2rem;
-        padding-top: 3rem;
-    }
-`;
-
-const RegisterButton = styled(Button)`
-    width: min(80%, 20rem);
-    font-size: 0.875rem;
-
-    justify-self: center;
-
-    @media (min-width: 35em) {
-        margin-bottom: 1.5rem;
-    }
-`;
+import { setUser } from "../../store/reducers/UserSlice";
+import { useAppDispatch } from "../../hooks/redux";
+import PasswordInput from "../UI/inputs/password-input/password-input.component";
+import {
+    FormContainer,
+    InputsContainer,
+    StyledButton,
+    StyledCloseButton,
+    StyledDashedHeader,
+} from "./authentication.style";
 
 type RegisterData = {
     email: string;
@@ -109,7 +69,26 @@ const Register: FC<RegisterProps> = ({ setIsOpen }) => {
                         );
                         break;
                 }
+
+                /*  const MapErrors = {
+                    "auth/email-already-exists": ["email", "Учетная запись уже существует"],
+                    "auth/too-weak-password": ["passwor", "Пароль должен содержать 236"],
+                };
+
+                const [field, message] = MapErrors(error.code);
+                setError(field, { message }, { shouldFocus: true }); */
             });
+
+        /* 
+            const map = {
+                "auth/email-already-exists": ["email", "Учетная запись уже существует"],
+                "auth/too-weak-password": ["passwor", "Пароль должен содержать 236"],
+            };
+
+            const [field, message] = map(error.code);
+            setError(field, { message }, { shouldFocus: true });
+
+        */
     };
 
     const registerPassword = {
@@ -137,12 +116,12 @@ const Register: FC<RegisterProps> = ({ setIsOpen }) => {
 
     return (
         <Modal>
-            <Form onSubmit={handleSubmit(onSubmit)}>
-                <RegisterCloseButton onClick={setIsOpen} />
+            <FormContainer onSubmit={handleSubmit(onSubmit)}>
+                <StyledCloseButton onClick={setIsOpen} />
 
-                <RegisterH2>Регистрация</RegisterH2>
+                <StyledDashedHeader>Регистрация</StyledDashedHeader>
 
-                <InputsDiv>
+                <InputsContainer>
                     <div>
                         <Input
                             {...register("email", {
@@ -202,10 +181,10 @@ const Register: FC<RegisterProps> = ({ setIsOpen }) => {
                             {errors.passwordRepeat && <p>{errors.passwordRepeat.message}</p>}
                         </ErrorInput>
                     </div>
-                </InputsDiv>
+                </InputsContainer>
 
-                <RegisterButton disabled={!isValid}>Зарегистрироваться</RegisterButton>
-            </Form>
+                <StyledButton disabled={!isValid}>Зарегистрироваться</StyledButton>
+            </FormContainer>
         </Modal>
     );
 };

@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const CloseButton = styled.button`
     border: 0;
-
     background-color: transparent;
     background-repeat: no-repeat;
     background-size: cover;
@@ -13,9 +12,7 @@ const CloseButton = styled.button`
     &:focus,
     &:hover {
         cursor: pointer;
-
         transition: all 0.2s;
-
         transform: scale(1.1);
     }
 `;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Container = styled.footer`
+export const FooterContainer = styled.footer`
     position: relative;
     text-align: center;
 
@@ -14,7 +14,7 @@ const Container = styled.footer`
     }
 `;
 
-const ImgDiv = styled.div`
+export const SocialMediaContainer = styled.div`
     display: inline-flex;
     justify-content: center;
     gap: 1rem;
@@ -28,21 +28,7 @@ const ImgDiv = styled.div`
     }
 `;
 
-const P = styled.p`
+export const CopyrightText = styled.p`
     margin: auto;
     text-transform: uppercase;
 `;
-
-const Footer = () => {
-    return (
-        <Container>
-            <P> © 2023 Catharsis</P>
-            <ImgDiv>
-                <img src="assets/icon/instagram.svg" alt="instagram" />
-                <img src="assets/icon/telegram.svg" alt="telegram" />
-            </ImgDiv>
-        </Container>
-    );
-};
-
-export default Footer;
