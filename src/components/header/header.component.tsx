@@ -15,7 +15,7 @@ const Header = () => {
 
     function showMenu(event: MouseEvent): void {
         if (openingLi.current === event.target) {
-            setIsHidden((prevValue) => !prevValue);
+            setIsHidden((isHidden) => !isHidden);
         }
     }
 

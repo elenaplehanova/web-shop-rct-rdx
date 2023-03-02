@@ -10,7 +10,7 @@ const PasswordInput = <T,>(props: PasswordInputProps<T>) => {
     const [isShowPassword, setIsShowPassword] = useState(false);
 
     const clickHandler = () => {
-        setIsShowPassword((prevValue) => !prevValue);
+        setIsShowPassword((isShowPassword) => !isShowPassword);
     };
 
     return (
