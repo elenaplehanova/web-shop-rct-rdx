@@ -14,11 +14,9 @@ import {
     StyledCloseButton,
     StyledDashedHeader,
 } from "./authentication.style";
-
-type LoginData = {
-    email: string;
-    password: string;
-};
+import { emailRules, passwordRules } from "../../utils/react-hook-form/react-hook-form.utils";
+import { LoginErrorDescriptionMap } from "../../utils/firebase/firebase.utils";
+import { LoginData } from "../../types/login-data.types";
 
 type LoginProps = {
     setIsOpen: () => void;
@@ -53,33 +51,17 @@ const Login: FC<LoginProps> = ({ setIsOpen }) => {
                 setIsOpen();
             })
             .catch((error) => {
-                switch (error.code) {
-                    case "auth/user-not-found":
-                        setError(
-                            "email",
-                            { message: "Пользователь не найден" },
-                            { shouldFocus: true }
-                        );
-                        break;
-
-                    case "auth/wrong-password":
-                        setError(
-                            "password",
-                            { message: "Не верный пароль" },
-                            { shouldFocus: true }
-                        );
-                        break;
+                const errorDescription = LoginErrorDescriptionMap.get(error.code);
+                if (errorDescription) {
+                    const [field, message] = errorDescription;
+                    setError(field, { message }, { shouldFocus: true });
                 }
             });
     };
 
     const registerPassword = {
         ...register("password", {
-            required: "Поле обязательно к заполнению",
-            minLength: {
-                value: 6,
-                message: "Минимум 6 символов",
-            },
+            ...passwordRules,
         }),
     };
     type reqisterPasswordType = typeof registerPassword;
@@ -95,11 +77,7 @@ const Login: FC<LoginProps> = ({ setIsOpen }) => {
                     <div>
                         <Input
                             {...register("email", {
-                                required: "Поле обязательно к заполнению",
-                                minLength: {
-                                    value: 5,
-                                    message: "Минимум 5 символов",
-                                },
+                                ...emailRules,
                             })}
                             type="email"
                             placeholder="Введите e-mail"

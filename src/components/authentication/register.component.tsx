@@ -14,14 +14,13 @@ import {
     StyledCloseButton,
     StyledDashedHeader,
 } from "./authentication.style";
-
-type RegisterData = {
-    email: string;
-    firstName: string;
-    lastName: string;
-    password: string;
-    passwordRepeat: string;
-};
+import { RegisterData } from "../../types/register-data.types";
+import {
+    emailRules,
+    passwordRules,
+    required,
+} from "../../utils/react-hook-form/react-hook-form.utils";
+import { RegisterErrorDescriptionMap } from "../../utils/firebase/firebase.utils";
 
 type RegisterProps = {
     setIsOpen: () => void;
@@ -60,55 +59,24 @@ const Register: FC<RegisterProps> = ({ setIsOpen }) => {
                 setIsOpen();
             })
             .catch((error) => {
-                switch (error.code) {
-                    case "auth/email-already-exists":
-                        setError(
-                            "email",
-                            { message: "Учетная запись уже существует" },
-                            { shouldFocus: true }
-                        );
-                        break;
+                const errorDescription = RegisterErrorDescriptionMap.get(error.code);
+                if (errorDescription) {
+                    const [field, message] = errorDescription;
+                    setError(field, { message }, { shouldFocus: true });
                 }
-
-                /*  const MapErrors = {
-                    "auth/email-already-exists": ["email", "Учетная запись уже существует"],
-                    "auth/too-weak-password": ["passwor", "Пароль должен содержать 236"],
-                };
-
-                const [field, message] = MapErrors(error.code);
-                setError(field, { message }, { shouldFocus: true }); */
             });
-
-        /* 
-            const map = {
-                "auth/email-already-exists": ["email", "Учетная запись уже существует"],
-                "auth/too-weak-password": ["passwor", "Пароль должен содержать 236"],
-            };
-
-            const [field, message] = map(error.code);
-            setError(field, { message }, { shouldFocus: true });
-
-        */
     };
 
     const registerPassword = {
         ...register("password", {
-            required: "Поле обязательно к заполнению",
-            minLength: {
-                value: 6,
-                message: "Минимум 6 символов",
-            },
+            ...passwordRules,
         }),
     };
     type reqisterPasswordType = typeof registerPassword;
 
     const registerPasswordRepeat = {
         ...register("passwordRepeat", {
-            required: "Поле обязательно к заполнению",
-            minLength: {
-                value: 6,
-                message: "Минимум 6 символов",
-            },
+            ...passwordRules,
             validate: (value) => value === password.current || "Пароли не совпадают",
         }),
     };
@@ -125,11 +93,7 @@ const Register: FC<RegisterProps> = ({ setIsOpen }) => {
                     <div>
                         <Input
                             {...register("email", {
-                                required: "Поле обязательно к заполнению",
-                                minLength: {
-                                    value: 5,
-                                    message: "Минимум 5 символов",
-                                },
+                                ...emailRules,
                             })}
                             type="email"
                             placeholder="E-mail"
@@ -140,7 +104,7 @@ const Register: FC<RegisterProps> = ({ setIsOpen }) => {
                     <div>
                         <Input
                             {...register("firstName", {
-                                required: "Поле обязательно к заполнению",
+                                ...required,
                             })}
                             placeholder="Ваше имя"
                         />
@@ -152,7 +116,7 @@ const Register: FC<RegisterProps> = ({ setIsOpen }) => {
                     <div>
                         <Input
                             {...register("lastName", {
-                                required: "Поле обязательно к заполнению",
+                                ...required,
                             })}
                             placeholder="Фамилия"
                         />
