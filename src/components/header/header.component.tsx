@@ -1,7 +1,7 @@
 import { MouseEvent, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-    HeaderText,
+    MainHeader,
     Line,
     ListItem,
     ListsContainer,
@@ -42,7 +42,7 @@ const Header = () => {
                     </ListItem>
                 </ListsContainer>
             </NavigationContainer>
-            <HeaderText>Catharsis</HeaderText>
+            <MainHeader role="heading">Catharsis</MainHeader>
         </header>
     );
 };
