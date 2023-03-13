@@ -90,7 +90,7 @@ export const SublistsContainer = styled.ul`
     }
 `;
 
-export const HeaderText = styled.h1`
+export const MainHeader = styled.h1`
     text-align: center;
     font-weight: 300;
     text-transform: uppercase;
